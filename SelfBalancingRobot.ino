@@ -1,9 +1,16 @@
+#include "HelperMacros.h"
+#include "UltrasonicSensor.h"
+
+// Pin Definitions
+const byte triggerPin = 0;
+const byte echoPin = 0;
+
+// Global Class Allocation
+
 void setup() {
-  // put your setup code here, to run once:
 
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
 
 }
