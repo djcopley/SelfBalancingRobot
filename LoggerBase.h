@@ -15,7 +15,7 @@ class LoggerBase {
 public:
     LoggerBase(LOG_LEVEL maxLogLevel, String formatter);
 
-    virtual void logMessage(LOG_LEVEL logLevel, String message) { return; }
+    virtual void logMessage(LOG_LEVEL logLevel, String message) = 0;
     bool isMsgLoggable(LOG_LEVEL msgLogLevel); // Returns true if message loglevel is below the max log level
 
 
