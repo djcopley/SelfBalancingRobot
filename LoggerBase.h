@@ -7,17 +7,26 @@
 
 #include <Arduino.h>
 
+enum LOG_LEVEL {
+    ERROR = 0, WARNING = 1, INFO = 2, DEBUG = 3
+};
+
 class LoggerBase {
 public:
-//    enum LEVEL = { ERROR, WARNING, INFO, DEBUG };
-//
-//    LoggerBase(LEVEL level, String formatter);
-//
-//    virtual void log(LEVEL, String message);
+    LoggerBase(LOG_LEVEL maxLogLevel, String formatter);
+
+    virtual void logMessage(LOG_LEVEL logLevel, String message) { return; }
+    bool isMsgLoggable(LOG_LEVEL msgLogLevel); // Returns true if message loglevel is below the max log level
+
 
 private:
     String formatter;
+    LOG_LEVEL maxLogLevel;
 
+    String getFormatter();
+    void setFormatter(String formatter);
+    LOG_LEVEL getMaxLogLevel();
+    void setMaxLogLevel(LOG_LEVEL logLevel);
 };
 
 

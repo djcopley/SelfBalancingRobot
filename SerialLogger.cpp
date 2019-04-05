@@ -4,7 +4,15 @@
 
 #include "SerialLogger.h"
 
-SerialLogger::SerialLogger(unsigned int baudRate) : baudRate(baudRate)
+SerialLogger::SerialLogger(unsigned int baudRate, LOG_LEVEL maxLogLevel, String formatter) : LoggerBase(maxLogLevel, formatter),
+                                                                                             baudRate(baudRate)
 {
     Serial.begin(baudRate);
+}
+
+void SerialLogger::logMessage(LOG_LEVEL msgLogLevel, String message)
+{
+    if (this->isMsgLoggable(msgLogLevel)) {
+        Serial.println(); // Format message and print to display
+    }
 }
