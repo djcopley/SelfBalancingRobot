@@ -9,7 +9,7 @@
 
 class Logger {
 public:
-    void registerLogger(LoggerBase logger);
+    void registerLogger(LoggerBase *logger);
     void logMessage(LOG_LEVEL msgLogLevel, String message);
 
 private:
