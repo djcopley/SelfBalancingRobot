@@ -5,12 +5,14 @@
 #ifndef SELFBALANCINGROBOT_SERIAL_LOGGER_H
 #define SELFBALANCINGROBOT_SERIAL_LOGGER_H
 
-#include "LoggerBase.h"
 #include <Arduino.h>
+#include "LoggerBase.h"
 
-class SerialLogger: public LoggerBase {
+class SerialLogger : public LoggerBase {
 public:
-    SerialLogger(unsigned int);
+    SerialLogger(unsigned int baudRate, LOG_LEVEL maxLogLevel, String formatter);
+
+    void logMessage(LOG_LEVEL msgLogLevel, String message);
 
 private:
     const unsigned int baudRate;
