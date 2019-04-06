@@ -10,7 +10,7 @@
 
 class SerialLogger : public LoggerBase {
 public:
-    SerialLogger(int baudRate, LOG_LEVEL maxLogLevel, String formatter);
+    SerialLogger(LOG_LEVEL maxLogLevel, String formatter) : LoggerBase(maxLogLevel, formatter) {};
 
     void logMessage(LOG_LEVEL msgLogLevel, String message);
 };

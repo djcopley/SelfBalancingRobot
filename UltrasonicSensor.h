@@ -8,7 +8,7 @@
  */
 class UltrasonicSensor {
 public:
-    UltrasonicSensor(byte, byte);
+    UltrasonicSensor(byte triggerPin, byte echoPin);
     float getDistanceCM(); // Get the distance to the object in front of the Ultra-sonic Sensor
 
 private:

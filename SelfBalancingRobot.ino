@@ -14,7 +14,8 @@ Logger *logger = new Logger();
 
 void setup()
 {
-    logger->registerLogger(new SerialLogger(115200, LOG_LEVEL(ERROR), "{log_level} - {time} - {message}"));
+    Serial.begin(115200);
+    logger->registerLogger(new SerialLogger(LOG_LEVEL(INFO), "{log_level} - {time} - {message}"));
 }
 
 void loop()
@@ -26,5 +27,5 @@ void loop()
     logger->logMessage(LOG_LEVEL(INFO), "INFO");
     delay(100);
     logger->logMessage(LOG_LEVEL(DEBUG), "DEBUG");
-    delay(1000);
+    delay(100);
 }
