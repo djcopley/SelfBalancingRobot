@@ -13,6 +13,6 @@ SerialLogger::SerialLogger(unsigned int baudRate, LOG_LEVEL maxLogLevel, String 
 void SerialLogger::logMessage(LOG_LEVEL msgLogLevel, String message)
 {
     if (this->isMsgLoggable(msgLogLevel)) {
-        Serial.println(); // Format message and print to display
+        Serial.println(message); // Format message and print to display
     }
 }
