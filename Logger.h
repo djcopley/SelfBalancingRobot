@@ -12,6 +12,7 @@
 
 class Logger {
 public:
+    ~Logger();
     // Register a logger
     void registerLogger(LoggerBase *logger);
     // Log a message

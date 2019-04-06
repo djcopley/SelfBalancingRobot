@@ -9,7 +9,7 @@
 
 class RF24Logger: public LoggerBase {
 public:
-    RF24Logger(LOG_LEVEL logLevel, String formatter);
+    RF24Logger(LOG_LEVEL maxLogLevel, String formatter);
 
 private:
 

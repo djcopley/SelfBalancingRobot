@@ -4,6 +4,11 @@
 
 #include "Logger.h"
 
+Logger::~Logger()
+{
+    loggers.erase(loggers.begin(), loggers.end());
+}
+
 void Logger::registerLogger(LoggerBase *logger)
 {
     this->loggers.push_back(logger);
