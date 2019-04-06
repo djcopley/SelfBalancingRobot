@@ -4,8 +4,7 @@
 
 #include "SerialLogger.h"
 
-SerialLogger::SerialLogger(unsigned int baudRate, LOG_LEVEL maxLogLevel, String formatter) : LoggerBase(maxLogLevel, formatter),
-                                                                                             baudRate(baudRate)
+SerialLogger::SerialLogger(int baudRate, LOG_LEVEL maxLogLevel, String formatter) : LoggerBase(maxLogLevel, formatter)
 {
     Serial.begin(baudRate);
 }
