@@ -12,7 +12,9 @@ enum LOG_LEVEL {
 };
 
 /**
- * Abstract class
+ * Abstract class.
+ *
+ * Logger classes inherit from here.
  */
 class LoggerBase {
 public:

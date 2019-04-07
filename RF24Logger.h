@@ -5,7 +5,10 @@
 #ifndef SELFBALANCINGROBOT_RF24LOGGER_H
 #define SELFBALANCINGROBOT_RF24LOGGER_H
 
+#include <RF24.h>
+#include <Wire.h>
 #include "LoggerBase.h"
+
 
 class RF24Logger: public LoggerBase {
 public:
