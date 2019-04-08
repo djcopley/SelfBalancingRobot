@@ -2,6 +2,7 @@
 #include "UltrasonicSensor.h"
 #include "LoggerBase.h"
 #include "SerialLogger.h"
+#include "RF24Logger.h"
 #include "Logger.h"
 
 // Pin Definitions
@@ -15,17 +16,18 @@ Logger *logger = new Logger();
 void setup()
 {
     Serial.begin(115200);
-    logger->registerLogger(new SerialLogger(LOG_LEVEL(INFO), "{log_level} - {time} - {message}"));
+    logger->registerLogger(new SerialLogger(INFO, "{log_level} - {time} - {message}"));
+    logger->registerLogger(new RF24Logger(INFO, "", 7, 8));
 }
 
 void loop()
 {
-    logger->logMessage(LOG_LEVEL(ERROR), "ERROR");
+    logger->logMessage(ERROR, "ERROR");
     delay(100);
-    logger->logMessage(LOG_LEVEL(WARNING), "WARNING");
+    logger->logMessage(WARNING, "WARNING");
     delay(100);
-    logger->logMessage(LOG_LEVEL(INFO), "INFO");
+    logger->logMessage(INFO, "INFO");
     delay(100);
-    logger->logMessage(LOG_LEVEL(DEBUG), "DEBUG");
+    logger->logMessage(DEBUG, "DEBUG");
     delay(100);
 }

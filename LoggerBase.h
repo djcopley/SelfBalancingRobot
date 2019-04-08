@@ -7,7 +7,7 @@
 
 #include <Arduino.h>
 
-enum LOG_LEVEL {
+typedef enum LOG_LEVEL {
     ERROR = 0, WARNING = 1, INFO = 2, DEBUG = 3
 };
 
