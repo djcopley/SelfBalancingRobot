@@ -8,6 +8,9 @@ UltrasonicSensor::UltrasonicSensor(byte triggerPin, byte echoPin) : triggerPin(t
 {
     pinMode(triggerPin, OUTPUT);
     pinMode(echoPin, INPUT);
+
+    digitalWrite(triggerPin,HIGH);
+    delay(2000);
 }
 
 float UltrasonicSensor::getDistanceCM()
@@ -20,12 +23,12 @@ float UltrasonicSensor::getDistanceCM()
     delayMicroseconds(10);
     digitalWrite(triggerPin, LOW);
 
-    duration = pulseIn(echoPin, HIGH);
+    duration = pulseIn(echoPin, HIGH, 50000); // 50 milli-seconds timout (50k micro-seconds)
 
-    return microsecondsToCentimeters(duration);
+    return duration > 0 ? microsecondsToCentimeters(duration) : 0xFFFF;
 }
 
 float UltrasonicSensor::microsecondsToCentimeters(unsigned long microseconds)
 {
-    return microseconds * (2 / 29); // Convert time to distance
+    return microseconds * (0.034/2); // Convert time to distance
 }
