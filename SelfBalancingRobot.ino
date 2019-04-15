@@ -12,22 +12,19 @@ const byte echoPin = 0;
 // Global Class Allocation
 
 Logger *logger = new Logger();
+//UltrasonicSensor *ultrasonicSensor;
 
 void setup()
 {
     Serial.begin(115200);
-    logger->registerLogger(new SerialLogger(INFO, "{log_level} - {time} - {message}"));
-    logger->registerLogger(new RF24Logger(INFO, "", 7, 8));
+//    ultrasonicSensor = new UltrasonicSensor(2, 3);
+//    logger->registerLogger(new SerialLogger(INFO, "{log_level} - {time} - {message}"));
+    logger->registerLogger(new RF24Logger(INFO, "{log_level} - {time} - {message}", 7, 8));
 }
 
 void loop()
 {
-    logger->logMessage(ERROR, "ERROR");
-    delay(100);
-    logger->logMessage(WARNING, "WARNING");
-    delay(100);
-    logger->logMessage(INFO, "INFO");
-    delay(100);
-    logger->logMessage(DEBUG, "DEBUG");
-    delay(100);
+    Serial.println("Transmitting...");
+    logger->logMessage(INFO, "Testing Testing 1, 2, 3");
+    delay(1000);
 }
