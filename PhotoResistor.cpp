@@ -3,3 +3,18 @@
 //
 
 #include "PhotoResistor.h"
+
+PhotoResistor::PhotoResistor(uint8_t photoResistorPin) : photoResistorPin(photoResistorPin)
+{
+    centeredIntensity = analogRead(photoResistorPin);
+}
+
+short PhotoResistor::getIntensity()
+{
+    return analogRead(photoResistorPin) - centeredIntensity;
+}
+
+void PhotoResitor::calibrate()
+{
+    centeredIntensity = analogRead(photoResistorPin);
+}
