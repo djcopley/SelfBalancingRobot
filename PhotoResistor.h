@@ -9,11 +9,13 @@
 
 class PhotoResistor {
 public:
-    PhotoResistor(uint8_t digitalPin);
+    PhotoResistor(uint8_t photoResistorPin);
     short getIntensity();
+    void calibrate();
 
 private:
-    uint8_t digitalPin;
+    const uint8_t photoResistorPin;
+    short centeredIntensity;
 };
 
 
