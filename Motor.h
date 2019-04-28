@@ -7,7 +7,19 @@
 
 
 class Motor {
+public:
+    Motor(bool isTracking, double tiltAngle, bool avoidObstacle,
+          uint8_t leftPWNPin, uint8_t rightPWNPin, uint8_t leftDirPin, uint8_t rightDirPin);
 
+private:
+    void selfBalancing(int impact);
+    const uint8_t leftPWNPin;
+    const uint8_t rightPWNPin;
+    const uint8_t leftDirPin;
+    const uint8_t rightDirPin;
+    bool isTrack;
+    double tiltAngle;
+    bool needAvoid;
 };
 
 
