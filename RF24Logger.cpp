@@ -26,8 +26,8 @@ void RF24Logger::logMessage(LOG_LEVEL msgLogLevel, String message)
 {
     if (isMsgLoggable(msgLogLevel)) {
         for (int idx = 0; idx < message.length(); idx++) {
-            radio->write(new char(message.charAt(idx)), sizeof(char));
+            radio->writeFast(new char(message.charAt(idx)), sizeof(char));
         }
-        radio->write(new char('\n'), sizeof(char)); // Newline character
+        radio->writeFast(new char('\n'), sizeof(char)); // Newline character
     }
 }

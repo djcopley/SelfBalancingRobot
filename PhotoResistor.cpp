@@ -4,7 +4,7 @@
 
 #include "PhotoResistor.h"
 
-PhotoResistor::PhotoResistor(uint8_t photoResistorPin) : photoResistorPin(photoResistorPin)
+PhotoResistor::PhotoResistor(uint8_t photoResistorPin, float angle) : photoResistorPin(photoResistorPin), angle(angle)
 {
     centeredIntensity = analogRead(photoResistorPin);
 }
@@ -14,7 +14,7 @@ short PhotoResistor::getIntensity()
     return analogRead(photoResistorPin) - centeredIntensity;
 }
 
-void PhotoResitor::calibrate()
+void PhotoResistor::calibrate()
 {
     centeredIntensity = analogRead(photoResistorPin);
 }
