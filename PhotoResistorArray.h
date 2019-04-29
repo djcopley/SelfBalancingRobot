@@ -12,9 +12,8 @@ public:
     PhotoResistorArray(int numPhotoResistors, int *pinNumbers);
 
 private:
-    PhotoResistor *photoResistors;
+    PhotoResistor **photoResistors;
     int numPhotoResistors;
-
 };
 
 

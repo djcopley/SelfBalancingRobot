@@ -5,6 +5,7 @@
 #ifndef SELFBALANCINGROBOT_MOTOR_H
 #define SELFBALANCINGROBOT_MOTOR_H
 
+#include <Servo.h>
 
 class Motor {
 public:
