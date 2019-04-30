@@ -26,23 +26,27 @@ void Motor::go(SPEED speed, int direction, bool obstacleDetected)
         if(direction == 0){
             lSpeed = rSpeed = SPEED_STOP;
         } else if (direction > 0) {
-            lSpeed = speed;
+            lSpeed = SPEED_MEDIUM;
             rSpeed = SPEED_STOP;
         } else {
-            rSpeed = speed;
+            rSpeed = SPEED_MEDIUM;
             lSpeed = SPEED_STOP;
         }
     } else {
-        // Calculate dynamic speed
-        float scaleSpeed = speed - (speed) * abs((direction / 180));
         if (direction == 0) {
             lSpeed = rSpeed = speed;
+        } else if (direction == 180) {
+            lSpeed = speed;
+            rSpeed = SPEED_STOP;
+        } else if (direction == -180) {
+            rSpeed = speed;
+            lSpeed = SPEED_STOP;
         } else if (direction > 0) {
             lSpeed = speed;
-            rSpeed = scaleSpeed;
+            rSpeed = speed / 3;
         } else {
             rSpeed = speed;
-            lSpeed = scaleSpeed;
+            lSpeed = speed / 3;
         }
     }
     lServo.write(centerSpeed + lServoOffset + lSpeed);
