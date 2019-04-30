@@ -9,11 +9,17 @@
 
 class PhotoResistorArray {
 public:
-    PhotoResistorArray(int numPhotoResistors, int *pinNumbers);
+    PhotoResistorArray();
+    ~PhotoResistorArray();
+
 
 private:
-    PhotoResistor **photoResistors;
-    int numPhotoResistors;
+    const int numPhotoResistors = 3;
+    PhotoResistor photoResistors[3] = {
+            PhotoResistor(0, 0),
+            PhotoResistor(1, 120),
+            PhotoResistor(2, 240)
+    };
 };
 
 

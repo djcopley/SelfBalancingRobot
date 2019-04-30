@@ -9,6 +9,7 @@
 
 class PhotoResistor {
 public:
+    PhotoResistor() {};
     PhotoResistor(uint8_t photoResistorPin, float angle);
     short getIntensity();
     void calibrate();

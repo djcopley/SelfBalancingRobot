@@ -3,33 +3,44 @@
 //
 
 #include "Motor.h"
-Motor::Motor(bool isTracking, double tiltAngle, bool avoidObstacle, uint8_t leftPWNPin, uint8_t rightPWNPin, uint8_t leftDirPin,
-             uint8_t rightDirPin)
-: isTrack(isTracking), tiltAngle(tiltAngle), needAvoid(avoidObstacle), leftPWNPin(leftPWNPin),
-rightPWNPin(rightPWNPin), leftDirPin(leftDirPin), rightDirPin(rightDirPin)
-{
-    if(isTrack)
-    {
-        //set speed//
-        analogWrite(leftPWNPin, 100); // need to figure out the relationship between impact and speed.
-        analogWrite(rightPWNPin, 100); 
 
-        //move backward(counterclockwise)//
-        digitalWrite(leftDirPin, HIGH);
-        digitalWrite(rightDirPin, LOW);
-        selfBalancing(10); // need to figure out.
-        if(needAvoid)
-        {
-            selfBalancing(0); //no impacts
-            analogWrite(leftPWNPin, 170); // turn right.
+Motor::Motor(int lServoPin, int rServoPin)
+{
+    lServo->attach(lServoPin);
+    rServo->attach(rServoPin);
+
+    speed = LOW;
+}
+
+void Motor::go(SPEED speed, float direction, bool obstacleDetected)
+{
+    if (direction > 180) {
+        direction = 180;
+    } else if (direction < -180) {
+        direction = -180;
+    }
+
+    int rSpeed, lSpeed;
+
+    if (obstacleDetected) {
+        if (direction > 0) {
+            lSpeed = speed;
+            rSpeed = SPEED_STOP;
+        } else {
+            rSpeed = speed;
+            lSpeed = SPEED_STOP;
+        }
+    } else {
+        // Calculate dynamic speed
+        float scaleSpeed = speed - (speed) * abs((direction/180));
+        if (direction > 0) {
+            lSpeed = speed;
+            rSpeed = scaleSpeed;
+        } else {
+            rSpeed = speed;
+            lSpeed = scaleSpeed;
         }
     }
-    else
-    {
-        selfBalancing(0); //no impacts
-    }
-}
-void Motor::selfBalancing(int impact)
-{
-    //example: https://www.instructables.com/id/Arduino-Self-Balancing-Robot-1/
+    lServo->write(centerSpeed + lServoOffset + speed);
+    rServo->write(centerSpeed + rServoOffset + speed);
 }

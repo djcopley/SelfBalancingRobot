@@ -6,21 +6,27 @@
 #define SELFBALANCINGROBOT_MOTOR_H
 
 #include <Servo.h>
+#include <Arduino.h>
+
+typedef enum SPEED {SPEED_REVERSE = -6, SPEED_STOP = 0, SPEED_LOW = 2, SPEED_MEDIUM = 6, SPEED_HIGH = 10};
 
 class Motor {
 public:
-    Motor(bool isTracking, double tiltAngle, bool avoidObstacle,
-          uint8_t leftPWNPin, uint8_t rightPWNPin, uint8_t leftDirPin, uint8_t rightDirPin);
+    Motor(int lServoPin, int rServoPin);
+    void go(SPEED speed, float direction, bool obstacleDetected);
 
 private:
-    void selfBalancing(int impact);
-    const uint8_t leftPWNPin;
-    const uint8_t rightPWNPin;
-    const uint8_t leftDirPin;
-    const uint8_t rightDirPin;
-    bool isTrack;
-    double tiltAngle;
-    bool needAvoid;
+    Servo *lServo;
+    Servo *rServo;
+
+    bool turnOnly = false;
+
+    int speed;
+    const int centerSpeed = 90;
+
+    int rServoOffset;
+    int lServoOffset;
+
 };
 
 
