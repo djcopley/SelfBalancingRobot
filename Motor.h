@@ -28,7 +28,7 @@ private:
     int lServoOffset = 4;
 
     SPEED currentSpeed;
-    float distanceTraveled;
+    float distanceTraveled = 0;
 };
 
 

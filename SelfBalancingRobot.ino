@@ -51,20 +51,20 @@ void loop()
     } else if (distance > 40) {
         currentSpeed = SPEED_MEDIUM;
         obstacleDetected = false;
-    } else {
+    } else if (distance > 20) {
         currentSpeed = SPEED_LOW;
-        if (distance > 20) {
-            obstacleDetected = false;
-        } else {
-            obstacleDetected = true;
-        }
+        obstacleDetected = false;
+    } else {
+        currentSpeed = SPEED_STOP;
+        obstacleDetected = true;
     }
 
     motorControl->go(currentSpeed, photoResistorArray->getDirection(), obstacleDetected);
 
     if (millis() > timer + 1000) {
+        motorControl->updateDistanceTraveled();
         logger->logMessage(INFO, "Current speed: " + String(motorControl->getSpeed()) + "m/s");
-        logger->logMessage(INFO, "Current speed: " + String(motorControl->getDistanceTraveled()) + "m");
+        logger->logMessage(INFO, "Current distance: " + String(motorControl->getDistanceTraveled()) + "m");
         timer = millis();
     }
 }

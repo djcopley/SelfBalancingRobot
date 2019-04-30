@@ -30,6 +30,10 @@ LiquidCrystal_I2C lcd(0x3F,16,2);  // set the LCD address to 0x27 for a 16 chars
 #include "RF24.h"
 #include "printf.h"
 
+#define LED1 2
+#define LED2 3
+#define LED3 4
+
 
 RF24 radio(7,8);
 
@@ -48,14 +52,11 @@ void setup(void) {
 
     Serial.begin(115200);
 
-#ifdef I2C_LCD
-    lcd.init();
-    lcd.backlight();
-    lcd.begin(16,2);
-    lcd.print("RF Chat V1.0");
-    delay(500);
-    //lcd.clear();
-#endif
+    pinMode(LED1, OUTPUT);
+    pinMode(LED2, OUTPUT);
+    pinMode(LED3, OUTPUT);
+
+    digitalWrite(LED1, HIGH);
 
     printf_begin();
     radio.begin();
@@ -72,17 +73,22 @@ void setup(void) {
     radio.openReadingPipe(1,pipes[1]);
 
     radio.startListening();
-    radio.printDetails();
+//    radio.printDetails();
 
-    Serial.println();
-    Serial.println("RF Chat V01.0");
-    delay(500);
 }
+
+unsigned long deltaCheckin = millis();
 
 void loop(void) {
 
     nRF_receive();
     serial_receive();
+
+    if (millis() > deltaCheckin + 4000) {
+      digitalWrite(LED3, HIGH);
+    } else {
+      digitalWrite(LED3, LOW);
+    }
 
 } // end loop()
 
@@ -113,23 +119,22 @@ void serialEvent() {
 
 void nRF_receive(void) {
     int len = 0;
+    
     if ( radio.available() ) {
+        deltaCheckin = millis();
+        digitalWrite(LED2, HIGH);
+
         len = radio.getDynamicPayloadSize();
         radio.read(&RecvPayload,len);
         delay(5);
 
         RecvPayload[len] = 0; // null terminate string
 
-#ifdef I2C_LCD
-        lcd.setCursor(0,0);
-        lcd.print("R:              ");
-        lcd.setCursor(2,0);
-        lcd.print(RecvPayload);
-#endif
-        Serial.print("R:");
         Serial.print(RecvPayload);
         Serial.println();
         RecvPayload[0] = 0;  // Clear the buffers
+        
+        digitalWrite(LED2, LOW);
     }
 
 } // end nRF_receive()
@@ -138,18 +143,12 @@ void serial_receive(void){
 
     if (stringComplete) {
         strcat(SendPayload,serialBuffer);
+        
         // swap TX & Rx addr for writing
         radio.openWritingPipe(pipes[1]);
         radio.openReadingPipe(0,pipes[0]);
         radio.stopListening();
         radio.write(&SendPayload,strlen(SendPayload));
-
-#ifdef I2C_LCD
-        lcd.setCursor(0,1);
-        lcd.print("S:              ");
-        lcd.setCursor(2,1);
-        lcd.print(SendPayload);
-#endif
 
         Serial.print("S:");
         Serial.print(SendPayload);
