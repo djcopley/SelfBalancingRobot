@@ -13,20 +13,22 @@ typedef enum SPEED {SPEED_REVERSE = -6, SPEED_STOP = 0, SPEED_LOW = 2, SPEED_MED
 class Motor {
 public:
     Motor(int lServoPin, int rServoPin);
-    void go(SPEED speed, float direction, bool obstacleDetected);
+    void go(SPEED speed, int direction, bool obstacleDetected);
+    float getSpeed();
+    float getDistanceTraveled();
+    void updateDistanceTraveled();
 
 private:
-    Servo *lServo;
-    Servo *rServo;
+    Servo lServo;
+    Servo rServo;
 
-    bool turnOnly = false;
-
-    int speed;
     const int centerSpeed = 90;
 
-    int rServoOffset;
-    int lServoOffset;
+    int rServoOffset = 3;
+    int lServoOffset = 4;
 
+    SPEED currentSpeed;
+    float distanceTraveled;
 };
 
 

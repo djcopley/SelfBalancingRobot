@@ -9,16 +9,18 @@
 
 class PhotoResistorArray {
 public:
-    PhotoResistorArray();
-    ~PhotoResistorArray();
+    int getDirection();
 
 
 private:
     const int numPhotoResistors = 3;
+
+    const int threshold = 50;
+
     PhotoResistor photoResistors[3] = {
-            PhotoResistor(0, 0),
-            PhotoResistor(1, 120),
-            PhotoResistor(2, 240)
+            PhotoResistor(0),
+            PhotoResistor(1),
+            PhotoResistor(2)
     };
 };
 
